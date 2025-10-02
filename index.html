@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perros Comunitarios - Registro y Estadísticas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 Perros Comunitarios</h1>
+            <p>Registra, cuida y conoce a los perros de tu comunidad</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showSection('registro')">Registro</div>
+            <div class="nav-tab" onclick="showSection('estadisticas')">Estadísticas</div>
+        </div>
+        
+        <!-- Sección de Registro -->
+        <div id="registro-section" class="card">
+            <h2>Registrar Nuevo Perro Comunitario</h2>
+            <form id="dogForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Perro *</label>
+                    <input type="text" id="nombre" placeholder="Ej: Max, Luna, Rocky" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edad">Edad Aproximada (años) *</label>
+                    <input type="number" id="edad" min="0" max="20" placeholder="Ej: 3" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="zona">Zona/Barrio *</label>
+                    <input type="text" id="zona" placeholder="Ej: Barrio Las Condes, Centro..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="foto">Foto del Perro (opcional)</label>
+                    <input type="file" id="foto" accept="image/*">
+                    <img id="photo-preview" class="photo-preview" alt="Vista previa">
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" placeholder="Raza, color, características especiales, personalidad..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ubicación en el Mapa *</label>
+                    <p>Haz clic en el mapa para marcar la zona donde vive el perro</p>
+                    <div id="map"></div>
+                </div>
+                
+                <div id="form-message"></div>
+                
+                <button type="submit" class="btn">Registrar Perro y Generar QR</button>
+            </form>
+        </div>
+        
+        <!-- Sección de Estadísticas -->
+        <div id="estadisticas-section" class="card" style="display: none;">
+            <h2>📊 Estadísticas de la Comunidad</h2>
+            <div id="stats-loading" class="loading">Cargando estadísticas...</div>
+            <div id="stats-content" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-perros">0</div>
+                        <div class="stat-label">Perros Registrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="perros-con-foto">0</div>
+                        <div class="stat-label">Con Fotos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="zonas-activas">0</div>
+                        <div class="stat-label">Zonas Activas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="edad-promedio">0</div>
+                        <div class="stat-label">Edad Promedio</div>
+                    </div>
+                </div>
+                
+                <h3>Zonas con más perros</h3>
+                <div class="zone-list" id="zonas-lista">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                
+                <h3>Mapa de Distribución</h3>
+                <div id="stats-map"></div>
+            </div>
+        </div>
+        
+        <!-- Sección de QR -->
+        <div class="qr-section" id="qrResult" style="display: none;">
+            <h2>¡Código QR Generado!</h2>
+            <div id="qrcode"></div>
+            <p style="color: white; margin-top: 20px; font-size: 1.1rem;">
+                Imprime este código QR y colócalo en el collar del perro
+            </p>
+            <div class="instructions">
+                <h3>¿Cómo usarlo?</h3>
+                <ul>
+                    <li>Cualquier persona puede escanear este QR con su teléfono</li>
+                    <li>Verán la información del perro y su ubicación exacta</li>
+                    <li>Ayuda a la comunidad a cuidar mejor a estos amigos peludos</li>
+                </ul>
+            </div>
+            <button class="btn btn-secondary" onclick="resetForm()">Registrar otro perro</button>
+        </div>
+    </div>
+
+    <!-- Dependencias -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Perro - Perros Comunitarios</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 Perros Comunitarios</h1>
+            <p>Información del perro comunitario</p>
+        </header>
+        
+        <div id="perfil-section" class="card">
+            <img id="profile-photo" class="profile-photo" src="https://placehold.co/200x200/e6e6e6/999999?text=Sin+Foto" alt="Foto del perro">
+            <div class="profile-info">
+                <h1 id="profile-nombre">Cargando...</h1>
+                <p><strong>Edad:</strong> <span id="profile-edad"></span> años</p>
+                <p><strong>Zona:</strong> <span id="profile-zona"></span></p>
+                <p id="profile-descripcion"></p>
+            </div>
+            <div id="profile-map"></div>
+            <div id="profile-message"></div>
+            <button class="btn" onclick="window.location.href='index.html'">Volver al Registro</button>
+        </div>
+    </div>
+
+    <!-- Dependencias -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="perfil.js"></script>
+</body>
+</html>
