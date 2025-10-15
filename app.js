@@ -277,4 +277,42 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
 });
 
 // === MOSTRAR MENSAJES ===
-function showMessage(elementId, message, type)
+function showMessage(elementId, message, type) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = `<div class="${type}">${message}</div>`;
+    
+    if (type === 'success' || type === 'error') {
+        setTimeout(() => {
+            element.innerHTML = '';
+        }, 5000);
+    }
+}
+
+// === GENERAR Y MOSTRAR QR ===
+function mostrarQR(url) {
+    document.getElementById('qrResult').style.display = 'block';
+    document.getElementById('registro-section').scrollIntoView({ behavior: 'smooth' });
+    
+    QRCode.toCanvas(document.getElementById('qrcode'), url, {
+        width: 200,
+        height: 200
+    }, function (error) {
+        if (error) console.error(error);
+    });
+}
+
+// === RESETEAR FORMULARIO ===
+function resetForm() {
+    document.getElementById('qrResult').style.display = 'none';
+    document.getElementById('dogForm').reset();
+    document.getElementById('photo-preview').style.display = 'none';
+    if (marker) {
+        map.removeLayer(marker);
+        marker = null;
+    }
+}
+
+// === INICIALIZAR APLICACIÓN ===
+document.addEventListener('DOMContentLoaded', function() {
+    initMap();
+});
