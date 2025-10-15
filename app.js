@@ -271,8 +271,10 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
         showMessage('form-message', '✅ Perro registrado exitosamente!', 'success');
         
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error detallado:', error);
         showMessage('form-message', '❌ Error al registrar el perro. Por favor intenta nuevamente.', 'error');
+        // Re-lanzar el error para debugging
+        throw error;
     }
 });
 
