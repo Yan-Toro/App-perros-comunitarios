@@ -2,7 +2,7 @@
 const supabaseUrl = 'https://wkeqbvgqbdvcewcodday.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY0Mjc0MDYsImV4cCI6MTkxMTk0MzQwNn0.D1jv5n1bXq4Hkq7bX3jT8KXg1y8K3mJz8nUO3yZ5vXU';
 
-// ✅ CORRECCIÓN: Forma correcta de crear el cliente de Supabase
+//  CORRECCIÓN: Forma correcta de crear el cliente de Supabase
 const { createClient } = supabase;
 const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -15,7 +15,7 @@ function initMap() {
     // Verificar que el elemento existe
     const mapContainer = document.getElementById('map');
     if (!mapContainer) {
-        console.error('❌ Elemento #map no encontrado');
+        console.error(' Elemento #map no encontrado');
         return;
     }
     
@@ -102,7 +102,7 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
     e.preventDefault();
     
     if (!marker) {
-        showMessage('form-message', '⚠️ Por favor haz clic en el mapa para marcar la ubicación del perro', 'error');
+        showMessage('form-message', ' Por favor haz clic en el mapa para marcar la ubicación del perro', 'error');
         return;
     }
     
@@ -115,18 +115,18 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
     const lng = marker.getLatLng().lng;
     
     // Mostrar mensaje de carga
-    showMessage('form-message', ' 📤 Subiendo datos...', 'loading');
+    showMessage('form-message', '  Subiendo datos...', 'loading');
     
     try {
         // Subir foto si existe
         let fotoUrl = null;
         if (fotoFile) {
-            showMessage('form-message', ' 📸 Subiendo foto...', 'loading');
+            showMessage('form-message', '  Subiendo foto...', 'loading');
             fotoUrl = await subirFoto(fotoFile);
         }
         
         // Registrar en Supabase
-        showMessage('form-message', ' 🐾 Registrando perro...', 'loading');
+        showMessage('form-message', '  Registrando perro...', 'loading');
         const dogId = await registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl);
         
         // Generar URL del perfil
@@ -144,11 +144,11 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
             marker = null;
         }
         
-        showMessage('form-message', '✅ Perro registrado exitosamente!', 'success');
+        showMessage('form-message', ' Perro registrado exitosamente!', 'success');
         
     } catch (error) {
         console.error('Error:', error);
-        showMessage('form-message', '❌ Error al registrar el perro. Por favor intenta nuevamente.', 'error');
+        showMessage('form-message', ' Error al registrar el perro. Por favor intenta nuevamente.', 'error');
     }
 });
 
@@ -194,6 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('map')) {
         initMap();
     } else {
-        console.error('❌ Elemento #map no encontrado en el DOM');
+        console.error(' Elemento #map no encontrado en el DOM');
     }
 });
