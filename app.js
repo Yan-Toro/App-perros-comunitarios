@@ -28,39 +28,47 @@ function initMap() {
     });
 }
 
-// === SUBIR FOTO (Storage) ===
+/// === SUBIR FOTO (Storage) ===
 async function subirFoto(file) {
     if (!file) return null;
 
-    
-    const BUCKET = 'mapegados_img'; // <- cambia si tu bucket se llama distinto
+    const BUCKET = 'mapegados_img'; // Asegúrate de que este sea el nombre exacto de tu bucket en Supabase
     const fileName = `perros/${Date.now()}_${file.name}`;
 
-    // Subir archivo
-    const { data: uploadData, error: uploadError } = await supabaseClient.storage
-        .from(BUCKET)
-        .upload(fileName, file, {
-            cacheControl: '3600',
-            upsert: false
-        });
+    try {
+        // 1️⃣ Subir archivo al bucket
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+            .from(BUCKET)
+            .upload(fileName, file, {
+                cacheControl: '3600',
+                upsert: false // evita sobrescribir archivos con el mismo nombre
+            });
 
-    if (uploadError) {
-        console.error('Error al subir foto:', uploadError);
-        throw uploadError;
+        if (uploadError) {
+            console.error('❌ Error al subir foto:', uploadError);
+            throw uploadError;
+        }
+
+        // 2️⃣ Obtener URL pública de la imagen subida
+        const { data: publicData, error: publicError } = supabaseClient
+            .storage
+            .from(BUCKET)
+            .getPublicUrl(fileName);
+
+        if (publicError) {
+            console.error('❌ Error al obtener la URL pública:', publicError);
+            throw publicError;
+        }
+
+        // 3️⃣ Retornar la URL pública lista para mostrar en <img>
+        return publicData.publicUrl;
+
+    } catch (error) {
+        console.error('⚠️ Error inesperado en subirFoto:', error);
+        return null;
     }
-
-    // Obtener URL pública
-    const { data: publicData, error: publicError } = supabaseClient.storage
-        .from(BUCKET)
-        .getPublicUrl(fileName);
-
-    if (publicError) {
-        console.error('Error al obtener publicUrl:', publicError);
-        throw publicError;
-    }
-
-    return publicData.publicUrl;
 }
+
 
 // === REGISTRAR PERRO ===
 async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) {
