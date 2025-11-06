@@ -1,6 +1,6 @@
 // === CONFIGURACIÓN DE SUPABASE ===
 const supabaseUrl = 'https://wkeqbvgqbdvcewcodday.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY0Mjc0MDYsImV4cCI6MTkxMTk0MzQwNn0.D1jv5n1bXq4Hkq7bX3jT8KXg1y8K3mJz8nUO3yZ5vXU';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjU5ODEsImV4cCI6MjA3NTAwMTk4MX0.7Dv1ePEOBZNWDCjQGBTSvSUh3fhu27q_A1ERmxcvwaU';
 
 //  CORRECCIÓN: Forma correcta de crear el cliente de Supabase
 const { createClient } = supabase;
@@ -40,7 +40,7 @@ async function subirFoto(file) {
     
     const fileName = `perros/${Date.now()}_${file.name}`;
     const { data, error } = await supabaseClient.storage
-        .from('perros-fotos')
+        .from('mapegados_img')
         .upload(fileName, file);
     
     if (error) {
@@ -49,7 +49,7 @@ async function subirFoto(file) {
     }
     
     const { publicUrl } = supabaseClient.storage
-        .from('perros-fotos')
+        .from('mapegados_img')
         .getPublicUrl(fileName);
     
     return publicUrl;
@@ -59,7 +59,7 @@ async function subirFoto(file) {
 async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) {
     try {
         const { data, error } = await supabaseClient
-            .from('perros-comunitarios')
+            .from('perros_comunitarios')
             .insert([
                 {
                     nombre: nombre,
