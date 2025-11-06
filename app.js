@@ -59,7 +59,7 @@ async function subirFoto(file) {
 async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) {
     try {
         const { data, error } = await supabaseClient
-            .from('"perros-comunitario"')
+            .from('perros-comunitarios')
             .insert([
                 {
                     nombre: nombre,
