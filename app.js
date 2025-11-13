@@ -28,20 +28,80 @@ function initMap() {
     });
 }
 
-/// === SUBIR FOTO (Storage) ===
+// ============================================
+// FUNCIÓN AUXILIAR: Convertir imagen a WebP
+// ============================================
+async function convertToWebP(file, quality = 0.85) {
+    return new Promise((resolve, reject) => {
+        if (!file.type.startsWith('image/')) {
+            reject(new Error('El archivo no es una imagen'));
+            return;
+        }
+
+        if (file.type === 'image/webp') {
+            resolve(file);
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const img = new Image();
+
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                canvas.toBlob(
+                    (blob) => {
+                        if (blob) {
+                            const webpFile = new File(
+                                [blob],
+                                file.name.replace(/\.[^/.]+$/, '.webp'),
+                                { type: 'image/webp' }
+                            );
+                            resolve(webpFile);
+                        } else {
+                            reject(new Error('Error al convertir la imagen'));
+                        }
+                    },
+                    'image/webp',
+                    quality
+                );
+            };
+
+            img.onerror = () => reject(new Error('Error al cargar la imagen'));
+            img.src = e.target.result;
+        };
+
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsDataURL(file);
+    });
+}
+
+// ============================================
+// SUBIR FOTO A SUPABASE 
+// ============================================
 async function subirFoto(file) {
     if (!file) return null;
 
-    const BUCKET = 'mapegados_img'; // Asegúrate de que este sea el nombre exacto de tu bucket en Supabase
-    const fileName = `perros/${Date.now()}_${file.name}`;
+    const BUCKET = 'mapegados_img';
 
     try {
-        // 1️⃣ Subir archivo al bucket
+        console.log('🔄 Convirtiendo imagen a WebP...');
+        const webpFile = await convertToWebP(file, 0.85);
+        const fileName = `perros/${Date.now()}_${webpFile.name}`;
+
+        // Subir al bucket
         const { data: uploadData, error: uploadError } = await supabaseClient.storage
             .from(BUCKET)
-            .upload(fileName, file, {
+            .upload(fileName, webpFile, {
                 cacheControl: '3600',
-                upsert: false // evita sobrescribir archivos con el mismo nombre
+                upsert: false
             });
 
         if (uploadError) {
@@ -49,7 +109,9 @@ async function subirFoto(file) {
             throw uploadError;
         }
 
-        // 2️⃣ Obtener URL pública de la imagen subida
+        console.log('✅ Imagen subida exitosamente como WebP');
+
+        // Obtener URL pública
         const { data: publicData, error: publicError } = supabaseClient
             .storage
             .from(BUCKET)
@@ -60,25 +122,31 @@ async function subirFoto(file) {
             throw publicError;
         }
 
-        // 3️⃣ Retornar la URL pública lista para mostrar en <img>
         return publicData.publicUrl;
-
     } catch (error) {
         console.error('⚠️ Error inesperado en subirFoto:', error);
         return null;
     }
 }
 
-
-// === REGISTRAR PERRO ===
+// ============================================
+//  REGISTRAR PERRO 
+// ============================================
 async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) {
-    const TABLE = 'perros_comunitarios'; // <- ajusta si tu tabla tiene otro nombre
+    const TABLE = 'perros_comunitarios';
+    let finalFotoUrl = fotoUrl;
+
+    // Si el usuario seleccionó un archivo (objeto File), primero lo subimos
+    if (fotoUrl instanceof File) {
+        finalFotoUrl = await subirFoto(fotoUrl);
+    }
+
     const payload = {
         nombre,
         edad: edad ? parseInt(edad) : null,
         zona,
         descripcion,
-        foto_url: fotoUrl,
+        foto_url: finalFotoUrl,
         lat: lat ? parseFloat(lat) : null,
         lng: lng ? parseFloat(lng) : null
     };
@@ -96,7 +164,9 @@ async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl
     return (data && data[0]) ? data[0].id : null;
 }
 
-// === VISTA PREVIA FOTO ===
+// ============================================
+//  VISTA PREVIA FOTO
+// ============================================
 document.getElementById('foto')?.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
