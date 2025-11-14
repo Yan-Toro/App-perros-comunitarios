@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidado Responsable - Perros Comunitarios</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para la página de cuidado */
+        .cuidado-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cuidado-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .cuidado-card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .cuidado-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: left; /* Alineación izquierda para el contenido dentro de la tarjeta */
+        }
+
+        .tip-list {
+            text-align: left;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .tip-list li {
+            margin-bottom: 8px;
+        }
+
+        .cuidado-img {
+            width: 100%;
+            max-width: 400px; /* Ancho máximo para la imagen */
+            height: auto; /* Altura automática para mantener proporción */
+            border-radius: 8px;
+            margin: 10px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .resource-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+
+        .resource-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        /* Estilos de navegación */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #e1e5e9;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> Perros Comunitarios</h1>
+            <p>Registra, cuida y conoce a los perros de tu comunidad</p>
+            <div class="main-nav">
+                <a href="index.html" class="nav-btn"> Registro</a>
+                <a href="directorio.html" class="nav-btn"> Directorio</a>
+                <a href="estadisticas.html" class="nav-btn"> Estadísticas</a>
+                <a href="cuidado.html" class="nav-btn active"> Cuidado</a> <!-- Enlace a la nueva página -->
+            </div>
+        </header>
+
+        <div class="cuidado-container">
+            <div class="cuidado-card">
+                <h2>Guía de Cuidado Responsable</h2>
+                <p>Ser dueño de un perro es una responsabilidad. Implica compromiso, tiempo, recursos y amor. El cuidado responsable beneficia al animal, a la familia y a la sociedad en general.</p>
+                <img src="https://placehold.co/400x200/4a90e2/ffffff?text=Ilustración+Cuidado+Responsable" alt="Ilustración sobre cuidado responsable" class="cuidado-img">
+            </div>
+
+            <div class="cuidado-card">
+                <h2>Consejos Básicos de Cuidado</h2>
+                <ul class="tip-list">
+                    <li><strong>Alimentación:</strong> Proporciona alimento balanceado de calidad, acorde a su edad, tamaño y nivel de actividad. El agua siempre debe estar disponible.</li>
+                    <li><strong>Ejercicio:</strong> Pasea a tu perro diariamente. Es esencial para su salud física y mental.</li>
+                    <li><strong>Higiene:</strong> Baña y cepíllalo regularmente. Revisa orejas, dientes y uñas. Limpia su espacio de descanso.</li>
+                    <li><strong>Salud:</strong> Llévalo al veterinario para chequeos regulares, vacunas y desparasitaciones.</li>
+                    <li><strong>Identificación:</strong> Usa un collar con placa de identificación con tu nombre y teléfono. Considera el microchip.</li>
+                    <li><strong>Socialización:</strong> Expón a tu perro a diferentes personas, animales y entornos de manera positiva desde cachorro.</li>
+                    <li><strong>Entrenamiento:</strong> Enséñale comandos básicos y normas de convivencia. Refuerza positivamente.</li>
+                    <li><strong>Compromiso:</strong> Un perro puede vivir 10 a 15 años o más. Asegúrate de poder comprometerte durante toda su vida.</li>
+                </ul>
+                <img src="https://placehold.co/400x200/7ed321/ffffff?text=Alimentación+y+Ejercicio" alt="Perro comiendo y corriendo" class="cuidado-img">
+            </div>
+
+            <div class="cuidado-card">
+                <h2>Adopción Responsable</h2>
+                <p>Antes de comprar, considera adoptar. Existen miles de perros abandonados o rescatados buscando un hogar. Adoptar es un acto de amor.</p>
+                <ul class="tip-list">
+                    <li>Investiga y elige una fundación o refugio de confianza.</li>
+                    <li>Conoce al perro, su historia y temperamento.</li>
+                    <li>Prepara tu hogar antes de su llegada.</li>
+                    <li>Comprométete a brindarle amor, cuidados y estabilidad.</li>
+                </ul>
+                <img src="https://placehold.co/400x200/f5a623/ffffff?text=Adopción+Responsable" alt="Persona abrazando a un perro adoptado" class="cuidado-img">
+            </div>
+
+            <div class="cuidado-card">
+                <h2>Recursos Oficiales en Chile (2025)</h2>
+                <p>Consulta las siguientes páginas para obtener información oficial, normativas y recursos sobre el cuidado y bienestar animal en Chile.</p>
+                <a href="https://www.chileatiende.gob.cl/fichas/51436-ley-de-tenencia-responsable-de-mascotas-y-animales-de-compania-ley-cholito" target="_blank" class="resource-link">ChileAtiende- Tenencia Responsable</a>
+                <a href="https://www.sag.gob.cl/ambitos-de-accion/bienestar-animal" target="_blank" class="resource-link">Servicio Agrícola y Ganadero (SAG)</a>
+                <a href="https://www.bcn.cl/leychile/navegar?idNorma=1006858" target="_blank" class="resource-link">Ley 20.380 - Proteccion animal (Ley Chilena)</a>
+                <a href="https://www.gob.cl/" target="_blank" class="resource-link">Portal Gobierno de Chile (Buscador)</a>
+                <img src="https://placehold.co/400x200/9013fe/ffffff?text=Recursos+Oficiales" alt="Logos de instituciones chilenas" class="cuidado-img">
+            </div>
+
+            <button class="btn back-btn" onclick="window.location.href='index.html'">Volver al Inicio</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); margin-top: 40px; padding: 30px 0; text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: 15px; font-size: 1.3rem;"> Proyecto Perros Comunitarios</h3>
+                <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">
+                    Una iniciativa para el cuidado colaborativo de perros comunitarios mediante tecnología accesible.
+                    Registra, ubica y cuida a los perros de tu vecindario.
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin: 20px 0;">
+                    <a href="https://github.com/Yan-Toro/" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="mailto:tucorreo@ejemplo.com" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Contacto
+                    </a>
+                </div>
+
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 20px;">
+                    © <span id="current-year"></span> Proyecto de Especialidad - Todos los derechos reservados
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Actualizar el año en footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+
