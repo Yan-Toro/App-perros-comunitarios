@@ -15,15 +15,15 @@
             <h1> Perros Comunitarios</h1>
             <p>Registra, cuida y conoce a los perros de tu comunidad</p>
         </header>
-        
+
         <!-- Navegación principal -->
         <div class="main-nav">
             <a href="index.html" class="nav-btn active"> Registro</a>
             <a href="directorio.html" class="nav-btn"> Directorio</a>
             <a href="estadisticas.html" class="nav-btn"> Estadísticas</a>
-            <a href="cuidados.html" class="nav-btn"> Cuidados</a> 
+            <a href="cuidados.html" class="nav-btn"> Cuidados</a>
         </div>
-        
+
         <!-- Sección de Registro -->
         <div id="registro-section" class="card">
             <h2>Registrar Nuevo Perro Comunitario</h2>
@@ -32,40 +32,54 @@
                     <label for="nombre">Nombre del Perro *</label>
                     <input type="text" id="nombre" placeholder="Ej: Max, Luna, Rocky" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="edad">Edad Aproximada (años) *</label>
                     <input type="number" id="edad" min="0" max="20" placeholder="Ej: 3" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="zona">Zona/Barrio *</label>
                     <input type="text" id="zona" placeholder="Ej: Barrio Las Condes, Centro..." required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="foto">Foto del Perro (opcional)</label>
                     <input type="file" id="foto" accept="image/*">
                     <img id="photo-preview" class="photo-preview" alt="Vista previa">
                 </div>
-                
+                <label for="esterilizado">Esterilizado:</label>
+                <select id="esterilizado">
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                    <option value="En proceso" selected>En proceso</option>
+                </select>
+
+                <label for="vacunado">Vacunado:</label>
+                <select id="vacunado">
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                    <option value="En proceso" selected>En proceso</option>
+                </select>
+
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" placeholder="Raza, color, características especiales, personalidad..."></textarea>
+                    <textarea id="descripcion"
+                        placeholder="Raza, color, características especiales, personalidad..."></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Ubicación en el Mapa *</label>
                     <p>Haz clic en el mapa para marcar la zona donde vive el perro</p>
                     <div id="map"></div>
                 </div>
-                
+
                 <div id="form-message"></div>
-                
+
                 <button type="submit" class="btn">Registrar Perro</button>
             </form>
         </div>
-        
+
         <!-- Sección de QR -->
         <div class="qr-section" id="qrResult" style="display: none;">
             <h2>¡Código QR Generado!</h2>
