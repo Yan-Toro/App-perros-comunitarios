@@ -2,7 +2,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
         }
         
@@ -44,3 +44,11 @@
                 max-width: 300px;
             }
         }
+        
+        
+.icon-logo {
+  width: 40px;       
+  height: auto;
+  vertical-align: middle; 
+  margin-right: 10px;    
+}
