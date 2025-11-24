@@ -53,17 +53,18 @@
                 return;
             }
 
-            // Obtener zonas únicas para el filtro
-            const zonasUnicas = [...new Set(perros.map(p => p.zona).filter(Boolean))];
-            const zonaSelect = document.getElementById('search-zone');
-            zonaSelect.innerHTML = '<option value="">Todas las zonas</option>';
-            zonasUnicas.forEach(zona => {
-                const option = document.createElement('option');
-                option.value = zona;
-                option.textContent = zona;
-                zonaSelect.appendChild(option);
-            });
-
+            // Obtener zonas únicas para el filtro (solo si aún no están cargadas)
+                const zonaSelect = document.getElementById('search-zone');
+                if (zonaSelect.options.length <= 1) {
+                const zonasUnicas = [...new Set(perros.map(p => p.zona).filter(Boolean))];
+                zonaSelect.innerHTML = '<option value="">Todas las zonas</option>';
+                zonasUnicas.forEach(zona => {
+                    const option = document.createElement('option');
+                    option.value = zona;
+                    option.textContent = zona;
+                    zonaSelect.appendChild(option);
+                });
+}
             // Renderizar tarjetas
             container.innerHTML = perros.map(perro => `
                 <div class="dog-card">
@@ -76,10 +77,13 @@
                             <p><strong>Zona:</strong> ${perro.zona || 'Sin zona'}</p>
                             <p>${perro.descripcion || 'Sin descripción'}</p>
                         </div>
-                        <div class="dog-zone">${perro.zona || 'Sin zona'}</div>
                         <button class="view-profile-btn" onclick="verPerfil('${perro.id}')">
                             Ver Perfil
                         </button>
+                         <div class="dog-zone">
+                        <img src="img/icono.ubicacion.png" alt="ubicación" class="icono-ubicacion">
+                        ${perro.zona || 'Sin zona'}
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -124,7 +128,7 @@
             }
         }
 
-        // === FILTRAR PERROS ===
+        
         function filtrarPerros(perros) {
             const nombre = document.getElementById('search-name').value.toLowerCase();
             const zona = document.getElementById('search-zone').value;

@@ -14,15 +14,22 @@
 <body>
     <div class="container">
         <header>
-            <h1> Perros Comunitarios</h1>
+            <h1> Maps Pets</h1>
             <p>Datos relevantes sobre los perros comunitarios registrados</p>
-            <div class="main-nav">
-                <a href="index.html" class="nav-btn"> Registro</a>
-                <a href="directorio.html" class="nav-btn"> Directorio</a>
-                <a href="estadisticas.html" class="nav-btn active"> Estadísticas</a>
-                <a href="cuidados.html" class="nav-btn"> Cuidados</a> 
-            </div>
-        </header>
+             <div class="main-nav">
+    <a href="index.html" class="nav-btn ">
+        <img src="img/icono.registro.png" class="nav-icon"> Registro
+    </a>
+    <a href="directorio.html" class="nav-btn">
+        <img src="img/icono.directorio.png" class="nav-icon"> Directorio
+    </a>
+    <a href="estadisticas.html" class="nav-btn active">
+        <img src="img/icono.estadisticas.png" class="nav-icon"> Estadísticas
+    </a>
+    <a href="cuidados.html" class="nav-btn">
+        <img src="img/icono.cuidados.png" class="nav-icon"> Cuidados
+    </a>
+</div>
 
         <div class="card">
             <button class="refresh-btn" onclick="cargarEstadisticas()">
@@ -74,13 +81,6 @@
                     </div>
                 </div>
 
-                <!-- Ranking de zonas -->
-                <div class="chart-container">
-                    <h3 class="chart-title">Ranking de Zonas</h3>
-                    <div class="zone-rankings" id="zone-rankings">
-                        <!-- Se llenará dinámicamente -->
-                    </div>
-                </div>
 
                 <!-- Mapa de distribución -->
                 <div class="chart-container">

@@ -188,25 +188,6 @@ function crearGraficoZonas(topZonas) {
     });
 }
 
-// === RENDERIZAR RANKING DE ZONAS ===
-function renderizarRankingZonas(topZonas) {
-    const container = document.getElementById('zone-rankings');
-
-    if (topZonas.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #666;">No hay zonas registradas</p>';
-        return;
-    }
-
-    container.innerHTML = topZonas.map(([zona, cantidad], index) => `
-        <div class="zone-item">
-            <div class="zone-rank">${index + 1}</div>
-            <div class="zone-info">
-                <div class="zone-name">${zona}</div>
-                <div class="zone-count">${cantidad} perro${cantidad !== 1 ? 's' : ''}</div>
-            </div>
-        </div>
-    `).join('');
-}
 
 // === RENDERIZAR MAPA DE ESTADÍSTICAS ===
 function renderizarMapaEstadisticas(perros) {
@@ -259,7 +240,6 @@ async function cargarEstadisticas() {
         renderizarEstadisticasNumericas(stats);
         crearGraficoEdad(stats.distribucionEdad);
         crearGraficoZonas(stats.topZonas);
-        renderizarRankingZonas(stats.topZonas);
         renderizarMapaEstadisticas(stats.todosPerros);
 
         // Mostrar contenido

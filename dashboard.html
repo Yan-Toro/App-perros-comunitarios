@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Perros Comunitarios</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css\dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 Dashboard Administrador</h1>
+            <p>Gestión de Perros Comunitarios</p>
+            <div class="admin-badge">
+                👤 Admin <span class="logout-link" onclick="logout()">Cerrar sesión</span>
+            </div>
+        </header>
+
+        <div class="main-nav">
+            <a href="index.html" class="nav-btn">📝 Registro</a>
+            <a href="directorio.html" class="nav-btn">📋 Directorio</a>
+            <a href="estadisticas.html" class="nav-btn">📊 Estadísticas</a>
+            <a href="dashboard.html" class="nav-btn active">⚙️ Dashboard Admin</a>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-number" id="totalDogs">0</div>
+                <div class="stat-label">Total de Perros</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="totalZones">0</div>
+                <div class="stat-label">Zonas Registradas</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="avgAge">0</div>
+                <div class="stat-label">Edad Promedio</div>
+            </div>
+        </div>
+
+        <!-- Tabla de Perros -->
+        <div class="card">
+            <h2>📋 Lista de Perros Registrados</h2>
+            
+            <div id="alertBox" class="alert"></div>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o zona...">
+            </div>
+
+            <div class="table-container">
+                <table id="dogsTable">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nombre</th>
+                            <th class="hide-mobile">Edad</th>
+                            <th>Zona</th>
+                            <th class="hide-mobile">Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="6" class="loading">Cargando perros...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>✏️ Editar Perro</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                
+                <div class="form-group">
+                    <label>Nombre del Perro *</label>
+                    <input type="text" id="editNombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Edad (años) *</label>
+                    <input type="number" id="editEdad" min="0" max="20" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Zona/Barrio *</label>
+                    <input type="text" id="editZona" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="editDescripcion" placeholder="Raza, color, características..."></textarea>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">💾 Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>⚠️ Confirmar Eliminación</h2>
+            <p style="margin: 20px 0; color: #666; line-height: 1.6;">
+                ¿Estás seguro de que deseas eliminar a <strong id="deleteDogName"></strong>? 
+                <br><br>
+                Esta acción <strong>no se puede deshacer</strong>.
+            </p>
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
+                <button type="button" class="btn-confirm-delete" onclick="confirmDelete()">🗑️ Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js" defer></script>
+    
+</body>
+</html>
