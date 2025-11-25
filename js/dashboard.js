@@ -170,10 +170,10 @@ function displayDogs(perros) {
         
         if (perro.verificado === 'pendiente') {
             spanVerificado.classList.add('pending');
-            spanVerificado.textContent = '🟡 Pendiente';
+            spanVerificado.textContent = 'Pendiente';
         } else if (perro.verificado === 'aceptado') {
             spanVerificado.classList.add('accepted');
-            spanVerificado.textContent = '🟢 Aceptado';
+            spanVerificado.textContent = 'Aceptado';
         }
         
         tdVerificado.appendChild(spanVerificado);
@@ -192,12 +192,12 @@ function displayDogs(perros) {
         if (perro.verificado === 'pendiente') {
             const btnAceptar = document.createElement('button');
             btnAceptar.className = 'btn-small btn-accept';
-            btnAceptar.textContent = '✓ Aceptar';
+            btnAceptar.textContent = 'Aceptar';
             btnAceptar.onclick = () => acceptDog(perro.id, perro.nombre);
             
             const btnRechazar = document.createElement('button');
             btnRechazar.className = 'btn-small btn-reject';
-            btnRechazar.textContent = '✗ Rechazar';
+            btnRechazar.textContent = 'Rechazar';
             btnRechazar.onclick = () => rejectDog(perro.id, perro.nombre);
             
             divButtons.appendChild(btnAceptar);
@@ -206,17 +206,17 @@ function displayDogs(perros) {
             // Si ya está aceptado, mostrar botones normales
             const btnVer = document.createElement('button');
             btnVer.className = 'btn-small btn-view';
-            btnVer.textContent = '👁️ Ver';
+            btnVer.textContent = 'Ver Perro';
             btnVer.onclick = () => verPerfil(perro.id);
             
             const btnEditar = document.createElement('button');
             btnEditar.className = 'btn-small btn-edit';
-            btnEditar.textContent = '✏️ Editar';
+            btnEditar.textContent = 'Editar';
             btnEditar.onclick = () => openEditModal(perro.id);
             
             const btnEliminar = document.createElement('button');
             btnEliminar.className = 'btn-small btn-delete';
-            btnEliminar.textContent = '🗑️';
+            btnEliminar.textContent = 'Eliminar';
             btnEliminar.onclick = () => openDeleteModal(perro.id, perro.nombre);
             
             divButtons.appendChild(btnVer);
@@ -285,12 +285,12 @@ async function acceptDog(dogId, dogName) {
             throw new Error('No se pudo actualizar el perro');
         }
 
-        showAlert(`✅ "${dogName}" ha sido aceptado y ahora es visible en el directorio`, 'success');
+        showAlert(`"${dogName}" ha sido aceptado y ahora es visible en el directorio`, 'success');
         loadDogs();
 
     } catch (error) {
         console.error('Error aceptando perro:', error);
-        showAlert('❌ Error al aceptar el perro: ' + error.message, 'error');
+        showAlert('Error al aceptar el perro: ' + error.message, 'error');
     }
 }
 
@@ -300,7 +300,7 @@ window.acceptDog = acceptDog;
 // RECHAZAR PERRO
 // ============================================
 async function rejectDog(dogId, dogName) {
-    if (!confirm(`¿Rechazar el registro de "${dogName}"?\n\n⚠️ ADVERTENCIA: El perro será eliminado permanentemente de la base de datos.`)) {
+    if (!confirm(`¿Rechazar el registro de "${dogName}"?\n\nADVERTENCIA: El perro será eliminado permanentemente de la base de datos.`)) {
         return;
     }
 
@@ -317,12 +317,12 @@ async function rejectDog(dogId, dogName) {
             throw new Error('No se pudo eliminar el perro');
         }
 
-        showAlert(`✅ "${dogName}" ha sido rechazado y eliminado`, 'success');
+        showAlert(`"${dogName}" ha sido rechazado y eliminado`, 'success');
         loadDogs();
 
     } catch (error) {
         console.error('Error rechazando perro:', error);
-        showAlert('❌ Error al rechazar el perro: ' + error.message, 'error');
+        showAlert('Error al rechazar el perro: ' + error.message, 'error');
     }
 }
 
@@ -419,13 +419,13 @@ function setupEditFormListener() {
                     throw new Error('No se pudo actualizar el perro');
                 }
 
-                showAlert("✅ Perro actualizado correctamente", "success");
+                showAlert("Perro actualizado correctamente", "success");
                 closeEditModal();
                 await loadDogs();
 
             } catch (error) {
                 console.error('Error actualizando perro:', error);
-                showAlert("❌ Error al actualizar el perro: " + error.message, "error");
+                showAlert("Error al actualizar el perro: " + error.message, "error");
             }
         });
         
@@ -465,13 +465,13 @@ async function confirmDelete() {
             throw new Error('No se encontró el perro en la base de datos');
         }
 
-        showAlert("✅ Perro eliminado correctamente", "success");
+        showAlert("Perro eliminado correctamente", "success");
         closeDeleteModal();
         loadDogs();
 
     } catch (error) {
         console.error('Error eliminando perro:', error);
-        showAlert("❌ Error al eliminar el perro: " + error.message, "error");
+        showAlert("Error al eliminar el perro: " + error.message, "error");
     }
 }
 
