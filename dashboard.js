@@ -206,17 +206,17 @@ function displayDogs(perros) {
             // Si ya está aceptado, mostrar botones normales
             const btnVer = document.createElement('button');
             btnVer.className = 'btn-small btn-view';
-            btnVer.textContent = '👁️ Ver';
+            btnVer.textContent = 'Ver Perro';
             btnVer.onclick = () => verPerfil(perro.id);
             
             const btnEditar = document.createElement('button');
             btnEditar.className = 'btn-small btn-edit';
-            btnEditar.textContent = '✏️ Editar';
+            btnEditar.textContent = 'Editar';
             btnEditar.onclick = () => openEditModal(perro.id);
             
             const btnEliminar = document.createElement('button');
             btnEliminar.className = 'btn-small btn-delete';
-            btnEliminar.textContent = '🗑️';
+            btnEliminar.textContent = 'Eliminar';
             btnEliminar.onclick = () => openDeleteModal(perro.id, perro.nombre);
             
             divButtons.appendChild(btnVer);

@@ -29,6 +29,7 @@
                 const { data, error } = await supabaseClient
                     .from('perros_comunitarios')
                     .select('*')
+                    .eq('verificado', 'aceptado') // NUEVO: Solo perros aceptados
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;

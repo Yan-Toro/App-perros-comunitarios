@@ -129,26 +129,28 @@ async function subirFoto(file) {
     }
 }
 
+
 // ============================================
 //  REGISTRAR PERRO 
 // ============================================
-async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) {
+async function registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl) { // **(Nota: Eliminé 'verificado' de los parámetros ya que se setea aquí)**
     const TABLE = 'perros_comunitarios';
     let finalFotoUrl = fotoUrl;
 
     // Si el usuario seleccionó un archivo (objeto File), primero lo subimos
     if (fotoUrl instanceof File) {
         finalFotoUrl = await subirFoto(fotoUrl);
-    }
+        }
 
-    const payload = {
+        const payload = {
         nombre,
         edad: edad ? parseInt(edad) : null,
         zona,
         descripcion,
         foto_url: finalFotoUrl,
         lat: lat ? parseFloat(lat) : null,
-        lng: lng ? parseFloat(lng) : null
+        lng: lng ? parseFloat(lng) : null,
+        verificado: 'pendiente' 
     };
 
     const { data, error } = await supabaseClient
@@ -212,12 +214,26 @@ document.getElementById('dogForm')?.addEventListener('submit', async function(e)
         showMessage('form-message', 'Registrando perro...', 'loading');
         const dogId = await registrarPerro(nombre, edad, zona, descripcion, lat, lng, fotoUrl);
 
-        // Mensaje de éxito - muestra enlace al perfil (opcional)
+        // Mensaje de éxito
+        const successMessage = `
+             <div class="success">
+                 ✅ <strong>¡Perro registrado exitosamente!</strong><br><br>
+                ⏳ Tu registro está pendiente de aprobación por un administrador. 
+                 Una vez aprobado, aparecerá en el directorio público.
+            </div>
+        `;
+
         if (dogId) {
-            const profileUrl = `${window.location.origin}/perfil.html?id=${dogId}`;
-            showMessage('form-message', `Perro registrado! <a href="${profileUrl}">Ver perfil</a>`, 'success');
+ // Puedes optar por mantener el enlace a perfil o usar solo el mensaje de aprobación pendiente
+ // Opción 1: Mostrar solo el mensaje de éxito con aprobación pendiente:
+             showMessage('form-message', successMessage, 'success-custom');
+ 
+ // Opción 2: Si quieres el enlace: 
+// const profileUrl = `${window.location.origin}/perfil.html?id=${dogId}`;
+ // showMessage('form-message', successMessage + `<br><a href="${profileUrl}">Ver perfil (no público hasta aprobación)</a>`, 'success-custom');
+
         } else {
-            showMessage('form-message', 'Perro registrado!', 'success');
+            showMessage('form-message', successMessage, 'success-custom');
         }
 
         // limpiar formulario

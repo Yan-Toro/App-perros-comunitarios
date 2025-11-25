@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\dashboard.css">
+    <link rel="stylesheet" href="css\auth-styles.css">
 </head>
 <body>
     <div class="container">
@@ -19,17 +20,29 @@
         </header>
 
         <div class="main-nav">
-            <a href="index.html" class="nav-btn">📝 Registro</a>
-            <a href="directorio.html" class="nav-btn">📋 Directorio</a>
-            <a href="estadisticas.html" class="nav-btn">📊 Estadísticas</a>
-            <a href="dashboard.html" class="nav-btn active">⚙️ Dashboard Admin</a>
-        </div>
+                <a href="index.html" class="nav-btn ">
+                    <img src="img/icono.registro.png" class="nav-icon"> Registro
+                    </a>
+                <a href="directorio.html" class="nav-btn">
+                    <img src="img/icono.directorio.png" class="nav-icon"> Directorio
+                </a>
+                <a href="estadisticas.html" class="nav-btn">
+                    <img src="img/icono.estadisticas.png" class="nav-icon"> Estadísticas
+                </a>
+                <a href="cuidados.html" class="nav-btn active">
+                        <img src="img/icono.cuidados.png" class="nav-icon"> Cuidados
+                    </a>
+                </div>
 
         <!-- Estadísticas -->
         <div class="stats-row">
             <div class="stat-box">
                 <div class="stat-number" id="totalDogs">0</div>
-                <div class="stat-label">Total de Perros</div>
+                <div class="stat-label">Perros Aceptados</div>
+            </div>
+            <div class="stat-box stat-pending">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">⏳ Pendientes de Aprobación</div>
             </div>
             <div class="stat-box">
                 <div class="stat-number" id="totalZones">0</div>
@@ -47,6 +60,19 @@
             
             <div id="alertBox" class="alert"></div>
 
+            <!-- Filtros -->
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterByStatus('all')">
+                    Todos (<span id="allCount">0</span>)
+                </button>
+                <button class="filter-btn filter-pending" onclick="filterByStatus('pending')">
+                    🟡 Pendientes (<span id="pendingBadge">0</span>)
+                </button>
+                <button class="filter-btn filter-accepted" onclick="filterByStatus('accepted')">
+                    🟢 Aceptados (<span id="acceptedCount">0</span>)
+                </button>
+            </div>
+
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o zona...">
             </div>
@@ -59,13 +85,14 @@
                             <th>Nombre</th>
                             <th class="hide-mobile">Edad</th>
                             <th>Zona</th>
+                            <th>Estado</th>
                             <th class="hide-mobile">Descripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="6" class="loading">Cargando perros...</td>
+                            <td colspan="7" class="loading">Cargando perros...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,7 +151,25 @@
         </div>
     </div>
 
-    <script src="js/dashboard.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/auth-header.js"></script>
     
+    <script>
+        // Actualizar contadores al cargar
+        function updateCounts() {
+            document.getElementById('allCount').textContent = allDogs.length;
+            document.getElementById('pendingBadge').textContent = pendingDogs.length;
+            document.getElementById('acceptedCount').textContent = acceptedDogs.length;
+        }
+        
+        // Llamar después de cargar perros
+        const originalLoadDogs = loadDogs;
+        loadDogs = async function() {
+            await originalLoadDogs();
+            updateCounts();
+        };
+    </script>
 </body>
 </html>

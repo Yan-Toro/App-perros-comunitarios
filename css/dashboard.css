@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
     min-height: 100vh;
     padding: 20px;
 }
@@ -407,7 +407,99 @@ tr:hover {
     font-size: 1.1rem;
 }
 
-/* Responsive */
+/* Filtros de estado */
+.filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
+
+.filter-pending.active {
+    background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    border-color: #ffa726;
+}
+
+.filter-accepted.active {
+    background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+    border-color: #66bb6a;
+}
+
+/* Badges de verificación */
+.verification-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.verification-badge.pending {
+    background: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #ffb74d;
+}
+
+.verification-badge.accepted {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #81c784;
+}
+
+/* Fila pendiente */
+.pending-row {
+    background: #fffbf0 !important;
+}
+
+.pending-row:hover {
+    background: #fff8e1 !important;
+}
+
+/* Stat box pendiente */
+.stat-pending {
+    background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+}
+
+/* Botones de acción adicionales */
+.btn-accept {
+    background: #66bb6a;
+    color: white;
+}
+
+.btn-accept:hover {
+    background: #43a047;
+}
+
+.btn-reject {
+    background: #ff6b6b;
+    color: white;
+}
+
+.btn-reject:hover {
+    background: #ee5a24;
+}
 @media (max-width: 768px) {
     body {
         padding: 15px;

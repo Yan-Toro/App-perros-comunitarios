@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Perros Comunitarios</title>
+    <title>Admin Login - Perros Comunitarios</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="css\login.css">
+    <!-- Usar los mismos estilos que el resto del proyecto -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-styles.css">
 </head>
 <body>
     <div class="container">
-        
-        <!-- Loading -->
-        <div id="loading" class="loading">
+        <header>
+            <h1>🐾 Perros Comunitarios</h1>
+            <p>Panel de Administración</p>
+            <div id="auth-container">
+                        <!-- Los botones se insertan dinámicamente aquí -->
+              </div>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading" style="color: white;">
             <p>🐕 Verificando sesión...</p>
         </div>
 
         <!-- Login Card -->
-        <div id="loginCard" class="card">
-            <header>
-                <h1>🐾 Perros Comunitarios</h1>
-                <p>Panel de Administración</p>
-                <div class="admin-badge">👤 ADMIN</div>
-            </header>
+        <div id="loginCard" class="card login-container" style="display: none;">
+            <div style="text-align: center;">
+                <div class="admin-badge">👤 ADMINISTRADOR</div>
+            </div>
+
+            <h2 style="text-align: center; color: #333; margin-bottom: 10px;">Iniciar Sesión</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Acceso exclusivo para administradores</p>
 
             <div id="alert" class="alert"></div>
 
-            <form id="loginForm">
+            <form id="authForm">
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
                     <input 
                         type="email" 
                         id="email" 
-                        placeholder=""
+                        placeholder="admin@perroscomunitarios.com"
                         required 
                         autocomplete="email"
                     >
@@ -53,192 +63,139 @@
                     Iniciar Sesión
                 </button>
             </form>
-        </div>
 
-        <!-- Dashboard -->
-        <div id="dashboard" class="card dashboard">
-            <header>
-                <h1>🐾 Panel de Administración</h1>
-                <p>Gestión de Perros Comunitarios</p>
-            </header>
-
-            <div class="user-info">
-                <p><strong>👤 Usuario:</strong> <span id="userEmail"></span></p>
-                <p><strong>🔑 ID:</strong> <span id="userId"></span></p>
-                <p><strong>🕐 Última sesión:</strong> <span id="lastSignIn"></span></p>
-            </div>
-
-            <div class="admin-links">
-                <a href="dashboard.html" class="admin-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"/>
-                        <rect x="14" y="3" width="7" height="7"/>
-                        <rect x="14" y="14" width="7" height="7"/>
-                        <rect x="3" y="14" width="7" height="7"/>
-                    </svg>
-                    <div>
-                        <strong>Dashboard Admin</strong>
-                        <p style="font-size: 0.9rem; margin: 0;">Gestionar perros registrados</p>
-                    </div>
-                </a>
-
-                <a href="index.html" class="admin-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                    <div>
-                        <strong>Registrar Perro</strong>
-                        <p style="font-size: 0.9rem; margin: 0;">Agregar nuevo perro al sistema</p>
-                    </div>
-                </a>
-
-                <a href="directorio.html" class="admin-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                    </svg>
-                    <div>
-                        <strong>Ver Directorio</strong>
-                        <p style="font-size: 0.9rem; margin: 0;">Lista completa de perros registrados</p>
-                    </div>
-                </a>
-
-                <a href="estadisticas.html" class="admin-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="20" x2="12" y2="10"/>
-                        <line x1="18" y1="20" x2="18" y2="4"/>
-                        <line x1="6" y1="20" x2="6" y2="16"/>
-                    </svg>
-                    <div>
-                        <strong>Estadísticas</strong>
-                        <p style="font-size: 0.9rem; margin: 0;">Métricas y análisis del proyecto</p>
-                    </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: #667eea; text-decoration: none;">
+                    ← Volver al inicio
                 </a>
             </div>
-
-            <button class="btn btn-secondary" id="logoutBtn">
-                Cerrar Sesión
-            </button>
         </div>
     </div>
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth-header.js"></script>
     <script>
-        // === CONFIGURACIÓN DE SUPABASE ===
+        // ============================================
+        // CONFIGURACIÓN DE SUPABASE
+        // ============================================
         const supabaseUrl = 'https://wkeqbvgqbdvcewcodday.supabase.co';
         const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjU5ODEsImV4cCI6MjA3NTAwMTk4MX0.7Dv1ePEOBZNWDCjQGBTSvSUh3fhu27q_A1ERmxcvwaU';
 
         const { createClient } = supabase;
         const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
-        // === ELEMENTOS DEL DOM ===
+        // ============================================
+        // ELEMENTOS DEL DOM
+        // ============================================
         const loading = document.getElementById('loading');
         const loginCard = document.getElementById('loginCard');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
+        const authForm = document.getElementById('authForm');
         const alertBox = document.getElementById('alert');
         const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
 
-        // === UTILIDADES ===
+        // ============================================
+        // FUNCIONES DE UTILIDAD
+        // ============================================
         function showAlert(message, type = 'error') {
             alertBox.textContent = message;
             alertBox.className = `alert ${type} show`;
-            setTimeout(() => alertBox.className = 'alert', 5000);
+            setTimeout(() => {
+                alertBox.className = 'alert';
+            }, 5000);
         }
 
-        function showLoading(show) {
+        function showLoading(show = true) {
             loading.style.display = show ? 'block' : 'none';
         }
 
-        function showLogin(show) {
-            loginCard.classList.toggle('show', show);
+        function showLogin(show = true) {
+            loginCard.style.display = show ? 'block' : 'none';
         }
 
-        function showDashboard(show) {
-            dashboard.classList.toggle('show', show);
-        }
-
-        function updateDashboard(user) {
-            document.getElementById('userEmail').textContent = user.email;
-            document.getElementById('userId').textContent = user.id.substring(0, 20) + '...';
-            document.getElementById('lastSignIn').textContent =
-                new Date(user.last_sign_in_at).toLocaleString('es-ES');
-        }
-
-        // === VERIFICAR SESIÓN ===
+        // ============================================
+        // VERIFICACIÓN DE SESIÓN
+        // ============================================
         async function checkSession() {
-            const { data: { session }, error } = await supabaseClient.auth.getSession();
-
-            showLoading(false);
-
-            if (error) {
-                showAlert('Error al verificar sesión');
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                
+                showLoading(false);
+                
+                if (error) throw error;
+                
+                if (session) {
+                    // Usuario ya tiene sesión activa, redirigir al dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // No hay sesión, mostrar login
+                    showLogin(true);
+                }
+            } catch (error) {
+                console.error('Error verificando sesión:', error);
+                showLoading(false);
                 showLogin(true);
-                return;
-            }
-
-            if (session) {
-                updateDashboard(session.user);
-                showDashboard(true);
-            } else {
-                showLogin(true);
+                showAlert('Error al verificar la sesión', 'error');
             }
         }
 
-        // === LOGIN ===
-        loginForm.addEventListener('submit', async (e) => {
+        // ============================================
+        // MANEJO DE LOGIN
+        // ============================================
+        authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
+            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-
+            
             loginBtn.disabled = true;
             loginBtn.textContent = 'Iniciando sesión...';
-
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
-
-            if (error) {
-                showAlert('❌ Credenciales incorrectas');
-            } else {
-                updateDashboard(data.user);
+            
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
                 showAlert('¡Bienvenido administrador!', 'success');
+                
                 setTimeout(() => {
-                    showLogin(false);
-                    showDashboard(true);
-                }, 800);
+                    // Redirigir al dashboard después del login exitoso
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error en login:', error);
+                
+                if (error.message.includes('Invalid login credentials')) {
+                    showAlert('❌ Credenciales incorrectas. Verifica tu email y contraseña.', 'error');
+                } else if (error.message.includes('Email not confirmed')) {
+                    showAlert('⚠️ Debes confirmar tu email antes de iniciar sesión.', 'error');
+                } else {
+                    showAlert('❌ Error al iniciar sesión: ' + error.message, 'error');
+                }
+                
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Iniciar Sesión';
             }
-
-            loginBtn.disabled = false;
-            loginBtn.textContent = 'Iniciar Sesión';
         });
 
-        // === LOGOUT ===
-        logoutBtn.addEventListener('click', async () => {
-            const { error } = await supabaseClient.auth.signOut();
-            if (error) return showAlert('Error al cerrar sesión');
-
-            showDashboard(false);
-            showLogin(true);
-            showAlert('Sesión cerrada correctamente', 'success');
-        });
-
-        // === LISTENER DE CAMBIOS DE AUTENTICACIÓN ===
+        // ============================================
+        // LISTENER DE CAMBIOS DE AUTENTICACIÓN
+        // ============================================
         supabaseClient.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN') {
-                updateDashboard(session.user);
-                showLogin(false);
-                showDashboard(true);
-            }
-            if (event === 'SIGNED_OUT') {
-                showDashboard(false);
-                showLogin(true);
+            console.log('Auth event:', event);
+            
+            if (event === 'SIGNED_IN' && session) {
+                // Redirigir al dashboard
+                window.location.href = 'dashboard.html';
             }
         });
 
-        // === INICIALIZACIÓN ===
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
         checkSession();
     </script>
 </body>

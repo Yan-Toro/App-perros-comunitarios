@@ -6,12 +6,16 @@
     <title>Perfil del Perro - Perros Comunitarios</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1> Maps Pets</h1>
             <p>Información del perro comunitario</p>
+            <div id="auth-container">
+                        <!-- Los botones se insertan dinámicamente aquí -->
+              </div>
         </header>
         
         <div id="perfil-section" class="card">
@@ -37,6 +41,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/perfil.js"></script>
+    <script src="js/auth-header.js"></script>
     <!-- Footer -->
     <footer style="background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); margin-top: 40px; padding: 30px 0; text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.1);">
         <div class="container">
@@ -69,7 +74,6 @@
             </div>
         </div>
     </footer>
-
 <script>
     // Actualizar el año automáticamente
     document.getElementById('current-year').textContent = new Date().getFullYear();

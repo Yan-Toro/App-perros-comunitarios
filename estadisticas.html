@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\estadisticas.css">
+    <link rel="stylesheet" href="css\auth-styles.css">
 
 </head>
 
@@ -16,20 +17,24 @@
         <header>
             <h1> Maps Pets</h1>
             <p>Datos relevantes sobre los perros comunitarios registrados</p>
+            <div id="auth-container">
+                        <!-- Los botones se insertan dinámicamente aquí -->
+            </div>
              <div class="main-nav">
-    <a href="index.html" class="nav-btn ">
-        <img src="img/icono.registro.png" class="nav-icon"> Registro
-    </a>
-    <a href="directorio.html" class="nav-btn">
-        <img src="img/icono.directorio.png" class="nav-icon"> Directorio
-    </a>
-    <a href="estadisticas.html" class="nav-btn active">
-        <img src="img/icono.estadisticas.png" class="nav-icon"> Estadísticas
-    </a>
-    <a href="cuidados.html" class="nav-btn">
-        <img src="img/icono.cuidados.png" class="nav-icon"> Cuidados
-    </a>
-</div>
+                <a href="index.html" class="nav-btn ">
+                    <img src="img/icono.registro.png" class="nav-icon"> Registro
+                </a>
+                <a href="directorio.html" class="nav-btn">
+                    <img src="img/icono.directorio.png" class="nav-icon"> Directorio
+                </a>
+                <a href="estadisticas.html" class="nav-btn active">
+                    <img src="img/icono.estadisticas.png" class="nav-icon"> Estadísticas
+                </a>
+                <a href="cuidados.html" class="nav-btn">
+                    <img src="img/icono.cuidados.png" class="nav-icon"> Cuidados
+                </a>
+            </div>
+        </header>
 
         <div class="card">
             <button class="refresh-btn" onclick="cargarEstadisticas()">
@@ -102,6 +107,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/estadisticas.js"> </script>
+    <script src="js/auth-header.js"></script>
     
 
     <!-- Footer -->

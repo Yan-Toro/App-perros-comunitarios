@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\index.css">
+    <link rel="stylesheet" href="css/auth-styles.css">
 
 </head>
 <body>
@@ -15,6 +16,9 @@
            <h1> 
             Maps Pets
             <p>Registra, cuida y conoce a los perros de tu comunidad</p>
+            <div id="auth-container">
+                        <!-- Los botones se insertan dinámicamente aquí -->
+              </div>
         </header>
 
         <!-- Navegación principal -->
@@ -113,6 +117,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script src="js\app.js"></script>
+    <script src="js/auth-header.js"></script>
 
     <!-- Footer -->
 <footer style="background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); margin-top: 40px; padding: 30px 0; text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.1);">
