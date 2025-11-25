@@ -103,3 +103,21 @@ async function cargarPerfil() {
 
 // Ejecutar al cargar la página
 window.addEventListener("DOMContentLoaded", cargarPerfil);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    const profilePhoto = document.getElementById("profile-photo");
+    const closeBtn = document.querySelector(".close");
+
+    // abrir modal al hacer clic
+    profilePhoto.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+    };
+
+    // cerrar modal 
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    };
+});

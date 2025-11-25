@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Perro - Perros Comunitarios</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1> Perros Comunitarios</h1>
+            <h1> Maps Pets</h1>
             <p>Información del perro comunitario</p>
+            <div id="auth-container">
+                        <!-- Los botones se insertan dinámicamente aquí -->
+              </div>
         </header>
         
         <div id="perfil-section" class="card">
             <img id="profile-photo" class="profile-photo" src="https://placehold.co/200x200/e6e6e6/999999?text=Sin+Foto" alt="Foto del perro">
+            <!--Modal--> 
+            <div id="imageModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="modalImg">
+            </div>
             <div class="profile-info">
                 <h1 id="profile-nombre">Cargando...</h1>
                 <p><strong>Edad:</strong> <span id="profile-edad"></span> años</p>
@@ -24,47 +33,47 @@
             </div>
             <div id="profile-map"></div>
             <div id="profile-message"></div>
-            <button class="btn" onclick="window.location.href='index.html'">Volver al Registro</button>
+            <button class="btn" onclick="window.location.href='directorio.html'">Volver al Directorio</button>
         </div>
     </div>
 
     <!-- Dependencias -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="perfil.js"></script>
+    <script src="js/perfil.js"></script>
+    <script src="js/auth-header.js"></script>
     <!-- Footer -->
-<footer style="background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); margin-top: 40px; padding: 30px 0; text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.1);">
-    <div class="container">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <h3 style="margin-bottom: 15px; font-size: 1.3rem;"> Proyecto Perros Comunitarios</h3>
-            <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">
-                Una iniciativa para el cuidado colaborativo de perros comunitarios mediante tecnología accesible. 
-                Registra, ubica y cuida a los perros de tu vecindario.
-            </p>
-            
-            <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin: 20px 0;">
-                <a href="https://github.com/Yan-Toro/" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                    </svg>
-                    GitHub
-                </a>
-                <a href="mailto:tucorreo@ejemplo.com" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    Contacto
-                </a>
+    <footer style="background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); margin-top: 40px; padding: 30px 0; text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: 15px; font-size: 1.3rem;"> Perros Comunitarios</h3>
+                <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">
+                    Una iniciativa para el cuidado colaborativo de perros comunitarios mediante tecnología accesible. 
+                    Registra, ubica y cuida a los perros de tu vecindario.
+                </p>
+                
+                <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin: 20px 0;">
+                    <a href="https://github.com/Yan-Toro/" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="mailto:Mappets.contacto@gmail.com" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: all 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Contacto
+                    </a>
+                </div>
+                
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 20px;">
+                    © <span id="current-year"></span> Proyecto de Especialidad - Todos los derechos reservados
+                </p>
             </div>
-            
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 20px;">
-                © <span id="current-year"></span> Proyecto de Especialidad - Todos los derechos reservados
-            </p>
         </div>
-    </div>
-</footer>
-
+    </footer>
 <script>
     // Actualizar el año automáticamente
     document.getElementById('current-year').textContent = new Date().getFullYear();
