@@ -42,7 +42,7 @@
             </div>
             <div class="stat-box stat-pending">
                 <div class="stat-number" id="pendingCount">0</div>
-                <div class="stat-label">⏳ Pendientes de Aprobación</div>
+                <div class="stat-label">Pendientes de Aprobación</div>
             </div>
             <div class="stat-box">
                 <div class="stat-number" id="totalZones">0</div>
@@ -56,7 +56,7 @@
 
         <!-- Tabla de Perros -->
         <div class="card">
-            <h2>📋 Lista de Perros Registrados</h2>
+            <h2>Lista de Perros Registrados</h2>
             
             <div id="alertBox" class="alert"></div>
 
@@ -66,10 +66,10 @@
                     Todos (<span id="allCount">0</span>)
                 </button>
                 <button class="filter-btn filter-pending" onclick="filterByStatus('pending')">
-                    🟡 Pendientes (<span id="pendingBadge">0</span>)
+                    Pendientes (<span id="pendingBadge">0</span>)
                 </button>
                 <button class="filter-btn filter-accepted" onclick="filterByStatus('accepted')">
-                    🟢 Aceptados (<span id="acceptedCount">0</span>)
+                    Aceptados (<span id="acceptedCount">0</span>)
                 </button>
             </div>
 
@@ -103,7 +103,7 @@
     <!-- Modal de Edición -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h2>✏️ Editar Perro</h2>
+            <h2> Editar Perro</h2>
             <form id="editForm">
                 <input type="hidden" id="editId">
                 
@@ -129,7 +129,7 @@
 
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancelar</button>
-                    <button type="submit" class="btn-save">💾 Guardar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
                 </div>
             </form>
         </div>
@@ -138,7 +138,7 @@
     <!-- Modal de Eliminación -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">
-            <h2>⚠️ Confirmar Eliminación</h2>
+            <h2>Confirmar Eliminación</h2>
             <p style="margin: 20px 0; color: #666; line-height: 1.6;">
                 ¿Estás seguro de que deseas eliminar a <strong id="deleteDogName"></strong>? 
                 <br><br>
@@ -146,7 +146,7 @@
             </p>
             <div class="modal-buttons">
                 <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
-                <button type="button" class="btn-confirm-delete" onclick="confirmDelete()">🗑️ Eliminar</button>
+                <button type="button" class="btn-confirm-delete" onclick="confirmDelete()">Eliminar</button>
             </div>
         </div>
     </div>
