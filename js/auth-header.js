@@ -1,18 +1,15 @@
 // auth-header.js - Componente reutilizable para el header con autenticación
+// Incluir este script en todas las páginas HTML
 
 (function() {
     'use strict';
 
-    // Configuración de Supabase (ya debería estar cargada en la página)
-    const supabaseUrl = 'https://wkeqbvgqbdvcewcodday.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjU5ODEsImV4cCI6MjA3NTAwMTk4MX0.7Dv1ePEOBZNWDCjQGBTSvSUh3fhu27q_A1ERmxcvwaU';
+    // Usar la instancia compartida de Supabase
+    const supabaseClient = window.supabaseClient;
 
-    let supabaseClient;
-
-    // Inicializar Supabase si no está ya inicializado
-    if (typeof supabase !== 'undefined') {
-        const { createClient } = supabase;
-        supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    if (!supabaseClient) {
+        console.warn(' Supabase client no disponible. Asegúrate de cargar supabase primero.');
+        return;
     }
 
     // Función para verificar sesión
@@ -35,7 +32,28 @@
     // Función para cerrar sesión
     async function logout() {
         try {
-            await supabaseClient.auth.signOut();
+            // Primero verificar si hay sesión
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (session) {
+                // Solo intentar signOut si hay sesión activa
+                await supabaseClient.auth.signOut();
+            }
+            
+        } catch (error) {
+            console.log('Sesión ya cerrada o expirada:', error.message);
+        } finally {
+            // SIEMPRE limpiar el storage y actualizar UI
+            localStorage.removeItem('supabase.auth.token');
+            
+            // Limpiar todas las claves de supabase
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('sb-')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            
+            sessionStorage.clear();
             updateAuthUI(null);
             
             // Mostrar mensaje
@@ -46,10 +64,11 @@
             
             setTimeout(() => {
                 alertDiv.remove();
-            }, 3000);
-            
-        } catch (error) {
-            console.error('Error cerrando sesión:', error);
+                // Redirigir si está en dashboard
+                if (window.location.pathname.includes('dashboard')) {
+                    window.location.href = 'index.html';
+                }
+            }, 1500);
         }
     }
 

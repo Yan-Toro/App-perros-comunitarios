@@ -1,11 +1,4 @@
-// ============================================
-// CONFIGURACIÓN DE SUPABASE
-// ============================================
-const supabaseUrl = 'https://wkeqbvgqbdvcewcodday.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZXFidmdxYmR2Y2V3Y29kZGF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjU5ODEsImV4cCI6MjA3NTAwMTk4MX0.7Dv1ePEOBZNWDCjQGBTSvSUh3fhu27q_A1ERmxcvwaU';
 
-const { createClient } = supabase;
-const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
 // ============================================
 // VARIABLES GLOBALES
@@ -40,15 +33,30 @@ async function checkAdminSession() {
 // ============================================
 async function logout() {
     try {
-        await supabaseClient.auth.signOut();
-        window.location.href = 'login.html';
+        // Primero verificar si hay sesión activa
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        if (session) {
+            // Solo intentar signOut si hay sesión
+            await supabaseClient.auth.signOut();
+        } else {
+            console.log('No hay sesión activa para cerrar');
+        }
+        
     } catch (error) {
-        console.error('Error cerrando sesión:', error);
-        showAlert('Error al cerrar sesión', 'error');
+        console.log('Sesión ya cerrada o expirada:', error.message);
+    } finally {
+        // SIEMPRE limpiar y redirigir
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Redirigir al login
+        window.location.href = 'login.html';
     }
 }
 
 window.logout = logout;
+
 
 // ============================================
 // CARGAR PERROS
