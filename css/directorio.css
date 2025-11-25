@@ -318,3 +318,17 @@ justify-self: center;
   outline: none;
   box-shadow: 0 0 8px rgba(45, 6, 112, 0.4);
 }
+.icon-logo {
+  width: 25px;       
+  height: auto;
+  vertical-align: middle; 
+  margin-right: 10px;    
+}
+.neon-text {
+  color: #fff;
+  font-weight: bold;
+  text-shadow:
+    0 0 10px #c084fc,
+    0 0 20px #a855f7,
+    0 0 40px #7c3aed;
+}
