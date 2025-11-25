@@ -2,12 +2,15 @@
 
 /* Contenedor de autenticación en el header */
 #auth-container {
+    
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
-    margin-top: 15px;
-    justify-content: center;
+    margin-top: -30px;
+    justify-content: flex-end;
     flex-wrap: wrap;
+    width: 100%;
+    padding-right: 36px;
 }
 
 /* Botones de autenticación */
@@ -16,14 +19,14 @@
     backdrop-filter: blur(10px);
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 20px;
+    padding: 6px 14px;
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .auth-btn:hover {
