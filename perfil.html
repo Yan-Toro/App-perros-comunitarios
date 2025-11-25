@@ -19,12 +19,15 @@
         </header>
         
         <div id="perfil-section" class="card">
+            <button class="btn" onclick="window.location.href='directorio.html'">Volver al Directorio</button>
             <img id="profile-photo" class="profile-photo" src="https://placehold.co/200x200/e6e6e6/999999?text=Sin+Foto" alt="Foto del perro">
+        
             <!--Modal--> 
             <div id="imageModal" class="modal">
                 <span class="close">&times;</span>
                 <img class="modal-content" id="modalImg">
             </div>
+            
             <div class="profile-info">
                 <h1 id="profile-nombre">Cargando...</h1>
                 <p><strong>Edad:</strong> <span id="profile-edad"></span> años</p>
@@ -33,7 +36,7 @@
             </div>
             <div id="profile-map"></div>
             <div id="profile-message"></div>
-            <button class="btn" onclick="window.location.href='directorio.html'">Volver al Directorio</button>
+           
         </div>
     </div>
 
@@ -50,6 +53,7 @@
                 <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">
                     Una iniciativa para el cuidado colaborativo de perros comunitarios mediante tecnología accesible. 
                     Registra, ubica y cuida a los perros de tu vecindario.
+                    <img src="img/logohuella.png" class="icon-logo">
                 </p>
                 
                 <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin: 20px 0;">

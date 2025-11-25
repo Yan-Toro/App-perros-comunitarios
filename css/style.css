@@ -39,6 +39,8 @@ header h1 {
 header p {
     font-size: 1.1rem;
     opacity: 0.9;
+    font-weight: 600;
+
 }
 
 .nav-tabs {
@@ -115,16 +117,17 @@ textarea {
     margin-top: 10px;
     border: 2px solid #e1e5e9;
 }
+ 
 
 .btn {
     background: linear-gradient(135deg, #8da0f1 0%, #b57feb 100%);
     color: white;
     border: none;
-    padding: 10px 10px;
-    font-size: 18px;
+    padding: 6px 12px;
+    font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 600;
     transition: transform 0.2s, box-shadow 0.2s;
     margin-right: 10px;
     margin-top: 10px;
@@ -381,10 +384,18 @@ textarea {
 .nav-btn:hover .nav-icon {
     transform: scale(1.1);
 }
+
 .icon-logo {
-  width: 40px;       
+  width: 25px;       
   height: auto;
   vertical-align: middle; 
   margin-right: 10px;    
 }
-
+.neon-text {
+  color: #fff;
+  font-weight: bold;
+  text-shadow:
+    0 0 10px #c084fc,
+    0 0 20px #a855f7,
+    0 0 40px #7c3aed;
+}
