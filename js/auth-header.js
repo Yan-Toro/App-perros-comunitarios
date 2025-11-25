@@ -66,17 +66,17 @@
             // Usuario autenticado
             authContainer.innerHTML = `
                 <a href="dashboard.html" class="nav-btn auth-btn">
-                    ⚙️ Dashboard Admin
+                    Panel de Control
                 </a>
                 <button class="nav-btn auth-btn logout-btn" onclick="window.authHeader.logout()">
-                    🚪 Cerrar Sesión
+                    Cerrar Sesión
                 </button>
             `;
         } else {
             // Usuario no autenticado
             authContainer.innerHTML = `
                 <a href="login.html" class="nav-btn auth-btn">
-                    🔐 Iniciar Sesión
+                    Iniciar Sesión
                 </a>
             `;
         }
