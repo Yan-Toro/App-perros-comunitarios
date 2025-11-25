@@ -1,4 +1,4 @@
-
+const supabaseClient = window.supabaseClient;
 
 // Variables globales
 let statsMap = null;

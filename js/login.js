@@ -1,4 +1,4 @@
-// ============================================
+const supabaseClient = window.supabaseClient;
         // ELEMENTOS DEL DOM
         // ============================================
         const loading = document.getElementById('loading');

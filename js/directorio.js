@@ -1,4 +1,4 @@
-
+const supabaseClient = window.supabaseClient;
         // Variables globales
         let directoryMap = null;
         let mapMarkers = []; //  Inicializar como array vacío

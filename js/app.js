@@ -1,5 +1,5 @@
 
-
+const supabaseClient = window.supabaseClient;
 // === VARIABLES GLOBALES ===
 let map = null;
 let marker = null;
